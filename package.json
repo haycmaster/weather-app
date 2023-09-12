@@ -1,5 +1,5 @@
 {
-  "name": "weather-place",
+  "name": "weather-app",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
