@@ -2,8 +2,12 @@
   display: flex;
   max-width: 960px;
   flex-direction: column;
-  .mat-mdc-card-subtitle {
-    color: #424242;
+
+  .search-instruction {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
   }
 
   .search-form {
@@ -13,6 +17,7 @@
   .search-query {
     min-width: 150px;
     max-width: 800px;
+    padding-left: 10px;
     width: 80%;
     height: 40px;
     border-radius: 4px;

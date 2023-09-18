@@ -22,11 +22,22 @@ p {
   margin: 0;
 }
 
+.mgbody {
+  background-image: url('/assets/images/blue-sky.jpg');
+  height: 100%;
+  margin: 0px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  background-clip: border-box;
+}
+
 .content {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  margin: 82px auto 32px;
+  margin: 50px auto 32px;
   padding: 0 16px;
   max-width: 960px;
 }
