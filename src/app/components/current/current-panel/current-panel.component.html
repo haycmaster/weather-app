@@ -1,13 +1,17 @@
-<div>
-  <div>
-    name
+<div class="panel-container">
+  <div *ngIf="currentWeather$ | async">
+    <span class="city-name">{{cityName}}, {{region}} Weather</span>
+    <div>
+      <span>
+        Local time: {{localTime}}
+      </span>
+    </div>
   </div>
 
   <div class="list-box">
-    <wa-list-item [itemData]="temp$ | async"></wa-list-item>
-    <wa-list-item [itemData]="feelslike$ | async"></wa-list-item>
-    <wa-list-item [itemData]="wind$ | async"></wa-list-item>
-
+    <wa-list-item [itemData$]="temp$"></wa-list-item>
+    <wa-list-item [itemData$]="feelslike$"></wa-list-item>
+    <wa-list-item [itemData$]="wind$"></wa-list-item>
   </div>
 
 </div>

@@ -11,6 +11,8 @@ import { WeatherData } from 'src/app/types/weatherData';
   styleUrls: ['./current-panel.component.scss'],
 })
 export class CurrentPanelComponent implements OnInit, OnDestroy {
+  cityName = '';
+  region = '';
   temp$ = new Subject<ItemData>();
   feelslike$ = new Subject<ItemData>();
   wind$ = new Subject<ItemData>();
@@ -22,15 +24,21 @@ export class CurrentPanelComponent implements OnInit, OnDestroy {
   destroy$ = new Subject();
   constructor(private store: Store<any>) {}
 
+  ready$ = new Subject();
+  localTime = '';
+
   ngOnInit() {
     this.currentWeather$.pipe(takeUntil(this.destroy$)).subscribe((value) => {
       console.log('currentWeather$: ', value);
       this.initialItems(value);
+      this.ready$.next(true);
     });
   }
 
   initialItems(weatherData: WeatherData) {
+    const location = weatherData?.location;
     const current = weatherData?.current;
+
     this.temp$.next({
       title: 'Temperature',
       value: current?.temp_c + '',
@@ -46,8 +54,13 @@ export class CurrentPanelComponent implements OnInit, OnDestroy {
     this.wind$.next({
       title: 'Wind',
       value: '' + current?.wind_kph,
-      desc: '' + current?.wind_dir + '/ ' + ' km/h',
+      desc: ' km/h ' + current?.wind_dir,
     });
+
+    this.cityName = location?.name;
+    this.region = location?.region;
+    const time = new Date(location?.localtime);
+    this.localTime = time.toString();
   }
   ngOnDestroy(): void {
     this.destroy$.next('');

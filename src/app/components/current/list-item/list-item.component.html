@@ -1,6 +1,8 @@
-<div *ngIf="!!itemData?.value">
+<div *ngIf="value$ | async">
   <div class="item">
-    {{itemData?.title}} <br />
-    {{itemData?.value}} {{itemData?.desc}}
+    <div class="item-title">{{title$ | async}} </div>
+    <div>
+      {{value$ | async}} {{desc$ | async}}
+    </div>
   </div>
 </div>

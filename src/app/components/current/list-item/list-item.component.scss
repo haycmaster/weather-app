@@ -1,6 +1,11 @@
 .item {
   width: 130px;
   height: 130px;
-  margin: 10px;
-  border: 2px solid red;
+  margin: 10px 10px 10px 0;
+  border: 2px solid #e3dbdb;
+}
+
+.item-title {
+  font-size: 16px;
+  font-weight: bold;
 }
