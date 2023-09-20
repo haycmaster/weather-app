@@ -1,6 +1,8 @@
 export interface WeatherData {
   location: Location;
   current: WeatherStatus;
+  forecast?: Forecast;
+  alerts?: any;
 }
 
 export interface Location {
@@ -42,4 +44,54 @@ export interface WeatherStatus {
   uv: number;
   gust_mph: number;
   gust_kph: number;
+}
+
+export interface Forecast {
+  forecastday: ForecastDayData[];
+}
+
+export interface ForecastDayData {
+  date: string;
+  date_epoch: string;
+  day: FDay;
+  astro: Astro;
+  hour: any;
+}
+
+export interface FDay {
+  maxtemp_c: number;
+  example: number;
+  maxtemp_f: number;
+  mintemp_c: number;
+  mintemp_f: number;
+  avgtemp_c: number;
+  avgtemp_f: number;
+  maxwind_mph: number;
+  maxwind_kph: number;
+  totalprecip_mm: number;
+  totalprecip_in: number;
+  avgvis_km: number;
+  avgvis_miles: number;
+  avghumidity: number;
+  daily_will_it_rain: number;
+  daily_chance_of_rain: number;
+  daily_will_it_snow: number;
+  daily_chance_of_snow: number;
+  condition: {
+    text: string;
+    icon: string;
+    code: number;
+  };
+  uv: number;
+}
+
+export interface Astro {
+  sunrise: string;
+  sunset: string;
+  moonrise: string;
+  moonset: string;
+  moon_phase: string;
+  moon_illumination: string;
+  is_moon_up: number;
+  is_sun_up: number;
 }

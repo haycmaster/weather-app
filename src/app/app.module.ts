@@ -27,6 +27,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { ToastrModule } from 'ngx-toastr';
 import { CurrentPanelComponent } from './components/current/current-panel/current-panel.component';
 import { ListItemComponent } from './components/current/list-item/list-item.component';
+import { ForecastTabComponent } from './components/forecast-tab/forecast-tab.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { ListItemComponent } from './components/current/list-item/list-item.comp
     DocsComponent,
     CurrentPanelComponent,
     ListItemComponent,
+    ForecastTabComponent,
   ],
   imports: [
     BrowserModule,

@@ -27,16 +27,16 @@
     </form>
   </div>
 
-  <div class="tab-container">
+  <div class="tab-container" *ngIf="showTabs">
     <mat-tab-group color="default">
       <mat-tab label="CURRENT WEATHER">
         <ng-template matTabContent>
           <wa-current-panel></wa-current-panel>
         </ng-template>
       </mat-tab>
-      <mat-tab label="FORECAST">
+      <mat-tab label="7 Days">
         <ng-template matTabContent>
-          Weather foreast content
+          <wa-forecast-tab></wa-forecast-tab>
         </ng-template>
       </mat-tab>
     </mat-tab-group>

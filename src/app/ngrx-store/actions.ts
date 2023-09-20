@@ -16,6 +16,21 @@ export const addCurrentWeatherDataAction = createAction(
   props<WeatherData>()
 );
 
+export const setForecastDaysAction = createAction(
+  '[setForecastDaysAction] Set Forecast Days',
+  props<{ days: number }>()
+);
+
+export const retrieveForecastWeatherAction = createAction(
+  '[retrieveForecastWeatherAction] Retrieve Forecast Weather',
+  props<{ query: string; days: number }>()
+);
+
+export const addForecastWeatherAction = createAction(
+  '[addForecastWeatherAction] Add Forecast Weather Data',
+  props<WeatherData>()
+);
+
 export const addErrorAction = createAction(
   '[addErrorAction] Add Error',
   props<any>()

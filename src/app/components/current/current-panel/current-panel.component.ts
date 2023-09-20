@@ -29,7 +29,6 @@ export class CurrentPanelComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.currentWeather$.pipe(takeUntil(this.destroy$)).subscribe((value) => {
-      console.log('currentWeather$: ', value);
       this.initialItems(value);
       this.ready$.next(true);
     });
