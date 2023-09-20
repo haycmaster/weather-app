@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
@@ -6,14 +12,17 @@ import {
   retrieveCurrentWeatherAction,
   setLoadingFlagAction,
 } from 'src/app/ngrx-store/actions';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @Component({
   selector: 'wa-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class HomeComponent implements AfterViewInit {
   @ViewChild('queryInput') queryInputField: ElementRef;
+  tabLoadTimes: Date[] = [];
 
   constructor(
     private store: Store<any>,
@@ -36,5 +45,13 @@ export class HomeComponent implements AfterViewInit {
     } else {
       this.toastr.error('', 'Please provide location infomation');
     }
+  }
+
+  getTimeLoaded(index: number) {
+    if (!this.tabLoadTimes[index]) {
+      this.tabLoadTimes[index] = new Date();
+    }
+
+    return this.tabLoadTimes[index];
   }
 }

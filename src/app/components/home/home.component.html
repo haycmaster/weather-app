@@ -27,5 +27,18 @@
     </form>
   </div>
 
-  <wa-current-panel></wa-current-panel>
+  <div class="tab-container">
+    <mat-tab-group color="default">
+      <mat-tab label="CURRENT WEATHER">
+        <ng-template matTabContent>
+          <wa-current-panel></wa-current-panel>
+        </ng-template>
+      </mat-tab>
+      <mat-tab label="FORECAST">
+        <ng-template matTabContent>
+          Weather foreast content
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
 </div>

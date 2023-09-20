@@ -36,3 +36,21 @@
 .submit-btn {
   color: #424242;
 }
+
+// tab label
+.tab-container {
+  margin-top: 20px;
+  ;
+}
+
+.mat-mdc-tab-list {
+  border-bottom: 2px solid #94b6e6 !important;
+}
+
+.mat-mdc-tab-labels .mdc-tab--active .mdc-tab__text-label {
+  color: #fff !important;
+}
+
+.mat-mdc-tab .mdc-tab-indicator__content--underline {
+  border-color: #fff !important;
+}

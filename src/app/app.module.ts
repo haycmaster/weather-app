@@ -22,6 +22,7 @@ import { DocsComponent } from './components/docs/docs.component';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
+import { MatTabsModule } from '@angular/material/tabs';
 import { EffectsModule } from '@ngrx/effects';
 import { ToastrModule } from 'ngx-toastr';
 import { CurrentPanelComponent } from './components/current/current-panel/current-panel.component';
@@ -50,6 +51,7 @@ import { ListItemComponent } from './components/current/list-item/list-item.comp
     MatMenuModule,
     MatCardModule,
     MatInputModule,
+    MatTabsModule,
     StoreModule.forRoot({
       appState: reducer,
     }),
