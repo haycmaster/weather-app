@@ -12,7 +12,9 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+To build the project.
+ng build --output-path docs --base-href /weather-app/
+The build artifacts will be stored in the `docs/` directory.
 
 ## Running unit tests
 

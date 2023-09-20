@@ -1,0 +1,44 @@
+<div class="content">
+  <div style="border: 0 solid rgb(229, 225, 225);">
+    <div class="search-instruction">
+      <h3>Get weather by enter following location information</h3>
+      <ul>
+        <li>
+          Canadian postal code
+        </li>
+        <li>
+          City name
+        </li>
+        <li>
+          US Zipcode
+        </li>
+        <li>
+          Latitude/Longitude (decimal degree)
+        </li>
+        <li>
+          IP address
+        </li>
+      </ul>
+
+    </div>
+    <form [formGroup]="searchForm" (keydown.enter)="onSubmit()" class="search-form">
+      <input type="text" #queryInput class="search-query" formControlName="query" placeholder="Postalcode or city name">
+      <button mat-flat-button color="accent" class="search-button" (click)="onSubmit()">SUBMIT</button>
+    </form>
+  </div>
+
+  <div class="tab-container">
+    <mat-tab-group color="default">
+      <mat-tab label="CURRENT WEATHER">
+        <ng-template matTabContent>
+          <wa-current-panel></wa-current-panel>
+        </ng-template>
+      </mat-tab>
+      <mat-tab label="FORECAST">
+        <ng-template matTabContent>
+          Weather foreast content
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>
