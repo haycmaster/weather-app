@@ -23,8 +23,12 @@ export interface RealTimeData {
       windGust: number;
       windSpeed: number;
     };
-    location: LocationData;
   };
+  location: LocationData;
+  // for api call limited
+  code?: number;
+  type?: string;
+  message?: string;
 }
 
 export interface LocationData {

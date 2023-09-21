@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, Subject, of, takeUntil } from 'rxjs';
-import { selectCurrentWeather } from 'src/app/ngrx-store/selector';
+import { selectRealTimeWeather } from 'src/app/ngrx-store/selector';
 import { ItemData } from 'src/app/types/itemData';
-import { WeatherData } from 'src/app/types/weatherData';
+import { RealTimeData } from 'src/app/types/tomorrow.io/realTimeData';
 
 @Component({
   selector: 'wa-current-panel',
@@ -12,53 +12,49 @@ import { WeatherData } from 'src/app/types/weatherData';
 })
 export class CurrentPanelComponent implements OnInit, OnDestroy {
   cityName = '';
-  region = '';
-  temp$ = new Subject<ItemData>();
-  feelslike$ = new Subject<ItemData>();
-  wind$ = new Subject<ItemData>();
-  vis$ = new Subject<ItemData>();
-  uv$ = new Subject<ItemData>();
-  gust_mph = new Subject<ItemData>();
+  temp$ = new BehaviorSubject<ItemData>(null);
+  feelslike$ = new BehaviorSubject<ItemData>(null);
+  wind$ = new BehaviorSubject<ItemData>(null);
+  vis$ = new BehaviorSubject<ItemData>(null);
+  uv$ = new BehaviorSubject<ItemData>(null);
+  gust_mph = new BehaviorSubject<ItemData>(null);
 
-  currentWeather$ = this.store.select(selectCurrentWeather);
+  realTimeWeather$ = this.store.select(selectRealTimeWeather);
   destroy$ = new Subject();
   constructor(private store: Store<any>) {}
 
-  ready$ = new Subject();
   localTime = '';
 
   ngOnInit() {
-    this.currentWeather$.pipe(takeUntil(this.destroy$)).subscribe((value) => {
+    this.realTimeWeather$.pipe().subscribe((value) => {
       this.initialItems(value);
-      this.ready$.next(true);
     });
   }
 
-  initialItems(weatherData: WeatherData) {
-    const location = weatherData?.location;
-    const current = weatherData?.current;
+  initialItems(realTime: RealTimeData) {
+    const location = realTime?.location;
+    const values = realTime?.data.values;
 
     this.temp$.next({
       title: 'Temperature',
-      value: current?.temp_c + '',
+      value: values?.temperature + '',
       desc: '°C',
     });
 
     this.feelslike$.next({
       title: 'Feels like',
-      value: current?.feelslike_c + '',
+      value: values?.temperatureApparent + '',
       desc: '°C',
     });
 
     this.wind$.next({
       title: 'Wind',
-      value: '' + current?.wind_kph,
-      desc: ' km/h ' + current?.wind_dir,
+      value: '' + values?.windSpeed,
+      desc: ' km/h ',
     });
 
     this.cityName = location?.name;
-    this.region = location?.region;
-    const time = new Date(location?.localtime);
+    const time = new Date(realTime?.data.time);
     this.localTime = time.toString();
   }
   ngOnDestroy(): void {

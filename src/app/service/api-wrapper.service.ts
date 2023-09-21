@@ -18,10 +18,10 @@ export class ApiWrapperService {
   ) {}
 
   private catch<T>(result: any): Observable<any> {
-    const error = result.error.error;
-    if (error.message) {
+    const error = result.error;
+    if (error?.message) {
       this.store.dispatch(addErrorAction(result.error));
-      this.toastr.error(error.message, error.code);
+      this.toastr.error(error.message, error.code + ' ' + error.type);
     }
     return of(result.error);
   }

@@ -1,5 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable, Subject, takeUntil } from 'rxjs';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ItemData } from 'src/app/types/itemData';
 
 @Component({
@@ -7,26 +6,17 @@ import { ItemData } from 'src/app/types/itemData';
   templateUrl: './list-item.component.html',
   styleUrls: ['./list-item.component.scss'],
 })
-export class ListItemComponent implements OnInit {
-  @Input() itemData$: Observable<ItemData>;
+export class ListItemComponent implements OnChanges {
+  @Input() itemData: ItemData;
 
-  destroy$ = new Subject();
-  item: ItemData = null;
-  title$ = new BehaviorSubject<string>(null);
-  value$ = new BehaviorSubject<string>(null);
-  desc$ = new BehaviorSubject<string>(null);
+  title = '';
+  value = '';
+  desc = '';
 
-  ngOnInit(): void {
-    this.itemData$.pipe(takeUntil(this.destroy$)).subscribe((curItem) => {
-      if (curItem) {
-        this.title$.next(curItem.title);
-        this.value$.next(curItem.value);
-        this.desc$.next(curItem.desc);
-      }
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next('');
+  ngOnChanges(changes: SimpleChanges) {
+    const curItemData = changes['itemData'].currentValue;
+    this.title = curItemData?.title;
+    this.value = curItemData?.value;
+    this.desc = curItemData?.desc;
   }
 }

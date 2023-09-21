@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import Chart from 'chart.js/auto';
-import { filter, take, tap } from 'rxjs';
+import { combineLatest, filter, take } from 'rxjs';
 import {
   setForecastDaysAction,
   retrieveForecastWeatherAction,
@@ -11,7 +11,7 @@ import {
   selectForecastWeatherData,
   selectQuery,
 } from 'src/app/ngrx-store/selector';
-import { WeatherData, Forecast } from 'src/app/types/weatherData';
+import { DailyData } from 'src/app/types/tomorrow.io/ForecastData';
 
 @Component({
   selector: 'wa-forecast-tab',
@@ -31,14 +31,19 @@ export class ForecastTabComponent implements OnInit {
   }
 
   initObserverable() {
-    const forecastDays = 8;
-    this.currentQuery$.subscribe((curQuery) => {
-      this.store.dispatch(setForecastDaysAction({ days: forecastDays }));
-      this.store.dispatch(setLoadingFlagAction({ data: true }));
-      this.store.dispatch(
-        retrieveForecastWeatherAction({ query: curQuery, days: forecastDays })
-      );
-    });
+    const forecastDays = 7;
+
+    combineLatest([this.currentQuery$, this.forecastWeatherData$])
+      .pipe(take(1))
+      .subscribe(([curQuery, fData]) => {
+        if (!fData) {
+          this.store.dispatch(setForecastDaysAction({ days: forecastDays }));
+          this.store.dispatch(setLoadingFlagAction({ data: true }));
+          this.store.dispatch(
+            retrieveForecastWeatherAction({ query: curQuery })
+          );
+        }
+      });
 
     this.forecastWeatherData$
       .pipe(
@@ -47,13 +52,13 @@ export class ForecastTabComponent implements OnInit {
       )
       .subscribe((forecastData) => {
         if (forecastData) {
-          this.initChartData(forecastData);
+          this.initChartData(forecastData.timelines.daily);
         }
       });
   }
 
-  initChartData(forecastData: WeatherData) {
-    const fData = forecastData?.forecast;
+  initChartData(forecastData: DailyData[]) {
+    const dailyList = forecastData;
     if (forecastData) {
       try {
         let chartexist = this.forecastChart?.getchart('WeatherChart'); // <canvas> id
@@ -64,11 +69,13 @@ export class ForecastTabComponent implements OnInit {
         type: 'line',
         data: {
           // values on X-Axis
-          labels: fData.forecastday.map((fday) => fday.date),
+          labels: dailyList.map((daily) => daily.time),
           datasets: [
             {
               label: 'High',
-              data: fData.forecastday.map((fday) => fday.day.maxtemp_c + ''),
+              data: dailyList.map(
+                (fday) => fday.values.temperatureApparentMax + ''
+              ),
               backgroundColor: 'orange',
               fill: false,
               borderColor: 'red',
@@ -76,7 +83,9 @@ export class ForecastTabComponent implements OnInit {
             },
             {
               label: 'Low',
-              data: fData.forecastday.map((fday) => fday.day.mintemp_c + ''),
+              data: dailyList.map(
+                (fday) => fday.values.temperatureApparentMin + ''
+              ),
               fill: false,
               backgroundColor: 'lightblue',
               borderColor: 'blue',

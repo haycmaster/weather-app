@@ -1,0 +1,33 @@
+export const realTimeMockData = {
+  data: {
+    time: '2023-09-21T17:02:00Z',
+    values: {
+      cloudBase: 0.9,
+      cloudCeiling: 0,
+      cloudCover: 36,
+      dewPoint: 11.19,
+      freezingRainIntensity: 0,
+      humidity: 63,
+      precipitationProbability: 0,
+      pressureSurfaceLevel: 1016.54,
+      rainIntensity: 0,
+      sleetIntensity: 0,
+      snowIntensity: 0,
+      temperature: 19.19,
+      temperatureApparent: 19.19,
+      uvHealthConcern: 1,
+      uvIndex: 3,
+      visibility: 15.33,
+      weatherCode: 1100,
+      windDirection: 154.13,
+      windGust: 4.13,
+      windSpeed: 2.19,
+    },
+  },
+  location: {
+    lat: 43.653480529785156,
+    lon: -79.3839340209961,
+    name: 'Toronto, Golden Horseshoe, Ontario, Canada',
+    type: 'administrative',
+  },
+};

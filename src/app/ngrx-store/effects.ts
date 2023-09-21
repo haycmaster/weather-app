@@ -37,7 +37,7 @@ export class effects {
       ofType(retrieveForecastWeatherAction),
       switchMap((action) =>
         this.apiService
-          .retrieveForecastWeatherWrapper(action.query, action.days)
+          .retrieveForecastWeatherWrapper(action.query)
           .pipe(
             switchMap((result) => [
               addForecastWeatherAction(result),

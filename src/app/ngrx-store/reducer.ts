@@ -16,8 +16,8 @@ export const initialState: AppState = {
   query: '',
   loading: false,
   forecastDays: 0,
-  currentWeather: null,
-  forecastWeather: null,
+  realTimeWeather: null,
+  forecastData: null,
   error: null,
 };
 
@@ -41,7 +41,7 @@ export const reducer = createReducer(
   })),
   on(addCurrentWeatherDataAction, (state, action) => ({
     ...state,
-    currentWeather: action,
+    realTimeWeather: action,
   })),
   on(setForecastDaysAction, (state, action) => ({
     ...state,
@@ -49,7 +49,7 @@ export const reducer = createReducer(
   })),
   on(addForecastWeatherAction, (state, action) => ({
     ...state,
-    forecastWeather: action,
+    forecastData: action,
   })),
   on(addErrorAction, (state, action) => ({
     ...state,

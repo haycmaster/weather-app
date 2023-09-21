@@ -8,9 +8,9 @@ export const selectQuery = createSelector(
   (state) => state.query
 );
 
-export const selectCurrentWeather = createSelector(
+export const selectRealTimeWeather = createSelector(
   selectAppState,
-  (state) => state.currentWeather
+  (state) => state.realTimeWeather
 );
 
 export const selectForecastDays = createSelector(
@@ -20,5 +20,5 @@ export const selectForecastDays = createSelector(
 
 export const selectForecastWeatherData = createSelector(
   selectAppState,
-  (state) => state.forecastWeather
+  (state) => state.forecastData
 );

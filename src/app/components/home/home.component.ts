@@ -32,7 +32,7 @@ export class HomeComponent implements AfterViewInit {
   ) {}
 
   searchForm = this.fb.group({
-    query: ['M2N'],
+    query: ['Toronto ON'],
   });
 
   ngAfterViewInit() {
