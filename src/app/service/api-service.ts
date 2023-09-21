@@ -28,7 +28,7 @@ export class ApiService {
   // Api call with ApiWrapperService
   retrieveCurrentWeatherWrapper(query: string): Observable<RealTimeData> {
     const url = `https://api.tomorrow.io/v4/weather/realtime?location=${query}&apikey=${this.API_TOKEN}`;
-    const prodMode = false; // true/false
+    const prodMode = true; // true/false
     return prodMode
       ? this.apiWrapperService.get<RealTimeData>(url)
       : of(realTimeMockData).pipe(delay(500));
@@ -37,7 +37,7 @@ export class ApiService {
   retrieveForecastWeatherWrapper(query: string): Observable<ForecastData> {
     const today = new Date();
     const url = `https://api.tomorrow.io/v4/weather/forecast?location=${query}&apikey=${this.API_TOKEN}`;
-    const prodMode = false;
+    const prodMode = true;
     return prodMode
       ? this.apiWrapperService.get<ForecastData>(url)
       : of(forecastMockData).pipe(delay(500));
