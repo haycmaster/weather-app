@@ -6,13 +6,18 @@ import {
   retrieveCurrentWeatherAction,
   addCurrentWeatherDataAction,
   addErrorAction,
+  retrieveForecastWeatherAction,
+  addForecastWeatherAction,
+  setForecastDaysAction,
 } from 'src/app/ngrx-store/actions';
 import { AppState } from './appState';
 
 export const initialState: AppState = {
   query: '',
   loading: false,
-  currentWeather: null,
+  forecastDays: 0,
+  realTimeWeather: null,
+  forecastData: null,
   error: null,
 };
 
@@ -36,7 +41,15 @@ export const reducer = createReducer(
   })),
   on(addCurrentWeatherDataAction, (state, action) => ({
     ...state,
-    currentWeather: action,
+    realTimeWeather: action,
+  })),
+  on(setForecastDaysAction, (state, action) => ({
+    ...state,
+    forecastDays: action.days,
+  })),
+  on(addForecastWeatherAction, (state, action) => ({
+    ...state,
+    forecastData: action,
   })),
   on(addErrorAction, (state, action) => ({
     ...state,

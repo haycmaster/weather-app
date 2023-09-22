@@ -23,6 +23,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 export class HomeComponent implements AfterViewInit {
   @ViewChild('queryInput') queryInputField: ElementRef;
   tabLoadTimes: Date[] = [];
+  showTabs = false;
 
   constructor(
     private store: Store<any>,
@@ -31,13 +32,14 @@ export class HomeComponent implements AfterViewInit {
   ) {}
 
   searchForm = this.fb.group({
-    query: ['M2N'],
+    query: ['Toronto ON'],
   });
 
   ngAfterViewInit() {
     this.queryInputField.nativeElement.focus();
   }
   onSubmit() {
+    this.showTabs = true;
     const query = this.searchForm.value.query?.trim();
     if (query) {
       this.store.dispatch(setLoadingFlagAction({ data: true }));

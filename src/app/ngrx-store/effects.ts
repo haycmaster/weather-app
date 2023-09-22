@@ -7,7 +7,10 @@ import {
   addCurrentWeatherDataAction,
   retrieveCurrentWeatherAction,
   setLoadingFlagAction,
+  retrieveForecastWeatherAction,
+  addForecastWeatherAction,
 } from './actions';
+import { of } from 'rxjs';
 
 @Injectable()
 export class effects {
@@ -17,13 +20,30 @@ export class effects {
     this.actions$.pipe(
       ofType(retrieveCurrentWeatherAction),
       switchMap((action) =>
-        this.apiService.retrieveCurrentWeatherWrapper(action.data).pipe(
-          // tap((result) => console.log('In effects, result: ', result)),
-          switchMap((result) => [
-            addCurrentWeatherDataAction(result),
-            setLoadingFlagAction({ data: false }),
-          ])
-        )
+        this.apiService
+          .retrieveCurrentWeatherWrapper(action.data)
+          .pipe(
+            switchMap((result) => [
+              addCurrentWeatherDataAction(result),
+              setLoadingFlagAction({ data: false }),
+            ])
+          )
+      )
+    )
+  );
+
+  loadForecastRequest$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(retrieveForecastWeatherAction),
+      switchMap((action) =>
+        this.apiService
+          .retrieveForecastWeatherWrapper(action.query)
+          .pipe(
+            switchMap((result) => [
+              addForecastWeatherAction(result),
+              setLoadingFlagAction({ data: false }),
+            ])
+          )
       )
     )
   );

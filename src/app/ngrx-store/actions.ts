@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { WeatherData } from '../types/weatherData';
+import { ForecastData } from '../types/tomorrow.io/ForecastData';
+import { RealTimeData } from '../types/tomorrow.io/realTimeData';
 
 export const setLoadingFlagAction = createAction(
   '[setLoading] Set Loading Flag',
@@ -13,7 +14,22 @@ export const retrieveCurrentWeatherAction = createAction(
 
 export const addCurrentWeatherDataAction = createAction(
   '[addCurrentWeatherData] Add Current Weather Data',
-  props<WeatherData>()
+  props<RealTimeData>()
+);
+
+export const setForecastDaysAction = createAction(
+  '[setForecastDaysAction] Set Forecast Days',
+  props<{ days: number }>()
+);
+
+export const retrieveForecastWeatherAction = createAction(
+  '[retrieveForecastWeatherAction] Retrieve Forecast Weather',
+  props<{ query: string }>()
+);
+
+export const addForecastWeatherAction = createAction(
+  '[addForecastWeatherAction] Add Forecast Weather Data',
+  props<ForecastData>()
 );
 
 export const addErrorAction = createAction(
